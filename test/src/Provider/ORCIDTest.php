@@ -51,14 +51,14 @@ class ORCIDTest extends \PHPUnit_Framework_TestCase
     {
         $url = $this->provider->getAuthorizationUrl();
 
-        $this->assertContains('/authenticate', $url);
+        $this->assertContains(urlencode('/authenticate'), $url);
     }
 
     public function testGetAuthorizationUrl()
     {
         $url = $this->provider->getAuthorizationUrl();
         $uri = parse_url($url);
-        $this->assertEquals('/authorize', $uri['path']);
+        $this->assertEquals('/oauth/authorize', $uri['path']);
     }
 
     public function testBaseAccessTokenUrl()
@@ -225,6 +225,8 @@ class ORCIDTest extends \PHPUnit_Framework_TestCase
         $status = rand(401, 599);
         $reason = 'HTTP ERROR';
         $postResponse = m::mock('Psr\Http\Message\ResponseInterface');
+        $postResponse->shouldReceive('getBody')->andReturn('');
+        $postResponse->shouldReceive('getHeader')->andReturn([]);
         $postResponse->shouldReceive('getStatusCode')->andReturn($status);
         $postResponse->shouldReceive('getReasonPhrase')->andReturn($reason);
         $client = m::mock('GuzzleHttp\ClientInterface');
