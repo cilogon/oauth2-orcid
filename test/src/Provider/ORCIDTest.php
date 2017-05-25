@@ -70,10 +70,12 @@ class ORCIDTest extends \PHPUnit_Framework_TestCase
 
     public function testResourceOwnerDetailsUrl()
     {
+        $id = uniqid();
         $token = m::mock('League\OAuth2\Client\Token\AccessToken');
+        $token->shouldReceive('getResourceOwnerId')->andReturn($id);
         $url = $this->provider->getResourceOwnerDetailsUrl($token);
         $uri = parse_url($url);
-        $this->assertRegEx('/\/v2.0\/.*\/record/', $uri['path']);
+        $this->assertRegEx("/\/v2.0\/$id\/record/", $uri['path']);
     }
 
     public function testGetAccessToken()
@@ -102,7 +104,7 @@ class ORCIDTest extends \PHPUnit_Framework_TestCase
     {
         $id = uniqid();
         $uri = "http://orcid.org/$id";
-        $date = uniqid();
+        $date = '1234567890';
         $name = uniqid();
         $given_name = uniqid();
         $family_name = uniqid();
