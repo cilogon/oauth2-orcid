@@ -75,7 +75,7 @@ class ORCIDTest extends \PHPUnit_Framework_TestCase
         $token->shouldReceive('getResourceOwnerId')->andReturn($id);
         $url = $this->provider->getResourceOwnerDetailsUrl($token);
         $uri = parse_url($url);
-        $this->assertRegExp("/\/v2.0\/$id\/record/", $uri['path']);
+        $this->assertEquals("/v2.0/$id/record", $uri['path']);
     }
 
     public function testGetAccessToken()
