@@ -47,8 +47,8 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
     }
 
     /**
-     * Get resource owner display name. This corresponds to the "Published Name", 
-     * a.k.a. "credit-name".
+     * Get resource owner display name. This corresponds to the
+     * "Published Name", * a.k.a. "credit-name".
      *
      * @return string
      */
@@ -98,7 +98,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
     }
 
     /**
-     * Get other resource owner names, a.k.a. "Also Known As" names. 
+     * Get other resource owner names, a.k.a. "Also Known As" names.
      *
      * @return array
      */
@@ -158,7 +158,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
     }
 
     /**
-     * Get all resource owner email addresses. 
+     * Get all resource owner email addresses.
      *
      * @return array
      */

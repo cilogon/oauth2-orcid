@@ -30,12 +30,12 @@ class ORCID extends AbstractProvider
     const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'orcid';
 
     /**
-     * @var string 
+     * @var string
      */
     public $sandbox = false;
 
     /**
-     * @var string 
+     * @var string
      */
     public $member = false;
 
@@ -59,7 +59,7 @@ class ORCID extends AbstractProvider
      */
     public function getBaseAccessTokenUrl(array $params)
     {
-        return 'https://' . 
+        return 'https://' .
             (($this->sandbox) ? 'sandbox.' : '') .
             'orcid.org/oauth/token';
     }
@@ -73,12 +73,12 @@ class ORCID extends AbstractProvider
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token)
     {
-        return 'https://' . 
+        return 'https://' .
             (($this->member) ? 'api.' : 'pub.') .
             (($this->sandbox) ? 'sandbox.' : '') .
-            'orcid.org/v2.0/' . 
+            'orcid.org/v2.0/' .
             $token->getResourceOwnerId() .
-            '/record'; 
+            '/record';
     }
 
     /**
@@ -162,7 +162,7 @@ class ORCID extends AbstractProvider
      * @param array $params Query string parameters
      * @return RequestInterface
      */
-    protected function getAccessTokenRequest(array $params, $accesstoken=null)
+    protected function getAccessTokenRequest(array $params, $accesstoken = null)
     {
         $method  = $this->getAccessTokenMethod();
         $url     = $this->getAccessTokenUrl($params);
@@ -180,7 +180,7 @@ class ORCID extends AbstractProvider
      * @param  array $options
      * @return AccessToken
      */
-    public function getAccessToken($grant, array $options = [], $accesstoken=null)
+    public function getAccessToken($grant, array $options = [], $accesstoken = null)
     {
         $grant = $this->verifyGrant($grant);
         $params = [
@@ -195,5 +195,4 @@ class ORCID extends AbstractProvider
         $token    = $this->createAccessToken($prepared, $grant);
         return $token;
     }
-
 }
