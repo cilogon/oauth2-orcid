@@ -1,0 +1,8 @@
+vendor/
+composer.lock
+composer.phar
+.DS_Store
+testing/
+test/log
+build
+.*.sw?
