@@ -129,7 +129,7 @@ class ORCID extends AbstractProvider
             }
         } elseif (!empty($data['error-code'])) {
             $error = true;
-            $errcode = $data['error-code'];
+            $errcode = (int)$data['error-code'];
             if (!empty($data['developer-message'])) {
                 $errmsg = $data['developer-message'];
             }
