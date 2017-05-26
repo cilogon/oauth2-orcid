@@ -152,4 +152,4 @@ $newtoken = $provider->getAccessToken('refresh_token', [
 
 ## License
 
-The University of Illinois/NCSA Open Source License (NCSA). Please see [License File](https://github.com/cilogon/oauth2-cilogon/blob/master/LICENSE) for more information.
+The University of Illinois/NCSA Open Source License (NCSA). Please see [License File](https://github.com/cilogon/oauth2-orcid/blob/master/LICENSE) for more information.
