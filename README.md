@@ -37,7 +37,7 @@ composer require cilogon/oauth2-orcid
 ### Authorization Code Flow
 
 ```php
-$provider = new League\OAuth2\Client\Provider\ORCID([
+$provider = new CILogon\OAuth2\Client\Provider\ORCID([
     'clientId'     => '{orcid-client-id}',
     'clientSecret' => '{orcid-client-secret}',
     'redirectUri'  => 'https://example.com/callback-url',
@@ -110,7 +110,7 @@ In order to authenticate ORCID users and read associated attributes, you would t
 environment, set a 'sandbox' parameter to 'true' when creating the provider.
 
 ```php
-$provider = new League\OAuth2\Client\Provider\ORCID([
+$provider = new CILogon\OAuth2\Client\Provider\ORCID([
     'clientId'     => '{orcid-client-id}',
     'clientSecret' => '{orcid-client-secret}',
     'redirectUri'  => 'https://example.com/callback-url',
@@ -126,7 +126,7 @@ Note that you can use this in combination with the Member API (below).
 If you are an [ORCID member](https://orcid.org/about/membership), you can use the Member API instead of the Public API. To use the Member API, set a 'member' parameter to 'true' when creating the provider.
 
 ```php
-$provider = new League\OAuth2\Client\Provider\ORCID([
+$provider = new CILogon\OAuth2\Client\Provider\ORCID([
     'clientId'     => '{orcid-client-id}',
     'clientSecret' => '{orcid-client-secret}',
     'redirectUri'  => 'https://example.com/callback-url',
