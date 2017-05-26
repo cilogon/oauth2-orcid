@@ -222,11 +222,11 @@ class ORCIDTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($uri, $user->getId());
         $this->assertEquals($id, $user->toArray()['orcid-identifier']['path']);
-        $this->assertEquals($name, $user->getName());
-        $this->assertEquals($given_name, $user->getGivenName());
-        $this->assertEquals($given_name, $user->getFirstName());
-        $this->assertEquals($family_name, $user->getFamilyName());
-        $this->assertEquals($family_name, $user->getLastName());
+        $this->assertEquals($pubname, $user->getName());
+        $this->assertEquals($givenname, $user->getGivenName());
+        $this->assertEquals($givenname, $user->getFirstName());
+        $this->assertEquals($familyname, $user->getFamilyName());
+        $this->assertEquals($familyname, $user->getLastName());
         $this->assertEquals([$othername1, $othername2], $user->getOtherNames());
         $this->assertEquals($email2, $user->getEmail());
         $this->assertEquals($email2, $user->getPrimaryEmail());
