@@ -100,15 +100,49 @@ class ORCIDTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($token->getResourceOwnerId());
     }
 
+    public function testGetRefreshToken()
+    {
+        $id = uniqid();
+        $accesstoken = m::mock('League\OAuth2\Client\Token\AccessToken');
+        $accesstoken->shouldReceive('getToken')->andReturn($id);
+        $response = m::mock('Psr\Http\Message\ResponseInterface');
+        $response->shouldReceive('getBody')->andReturn(
+            '{"access_token": "mock_access_token", '.
+            '"token_type":"bearer", "refresh_token":"mock_refresh_token"}'
+        );
+        $response->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
+        $response->shouldReceive('getStatusCode')->andReturn(200);
+
+        $client = m::mock('GuzzleHttp\ClientInterface');
+        $client->shouldReceive('send')->times(1)->andReturn($response);
+        $this->provider->setHttpClient($client);
+
+        $token = $this->provider->getAccessToken(
+            'refresh_token',
+            ['refresh_token' => 'mock_refresh_token'],
+            $accesstoken
+        );
+
+        $this->assertEquals('mock_access_token', $token->getToken());
+        $this->assertNull($token->getExpires());
+        $this->assertEquals('mock_refresh_token', $token->getRefreshToken());
+        $this->assertNull($token->getResourceOwnerId());
+    }
+
+
     public function testUserData()
     {
         $id = uniqid();
         $uri = "http://orcid.org/$id";
         $date = '1234567890';
-        $name = uniqid();
-        $given_name = uniqid();
-        $family_name = uniqid();
-        $email = uniqid();
+        $givenname = uniqid();
+        $familyname = uniqid();
+        $pubname = uniqid();
+        $othername1 = uniqid();
+        $othername2 = uniqid();
+        $email1 = uniqid();
+        $email2 = uniqid();
+        $email3 = uniqid();
 
         $postResponse = m::mock('Psr\Http\Message\ResponseInterface');
         $postResponse->shouldReceive('getBody')->andReturn(
@@ -122,33 +156,54 @@ class ORCIDTest extends \PHPUnit_Framework_TestCase
 
         $userResponse->shouldReceive('getBody')->andReturn(
             '{"orcid-identifier":{"uri":"'.$uri.'","path":"'.$id.
-            '","host":"orcid.org"},"preferences":{"locale":"EN"},'.
-            '"history":{"creation-method":"DIRECT","completion-date":null,'.
-            '"submission-date":{"value":'.$date.'},"last-modified-date"'.
-            ':{"value":'.$date.'},"claimed":true,"source":null,'.
-            '"deactivation-date":null,"verified-email":true,"'.
-            'verified-primary-email":true},"person":{"last-modified-date"'.
-            ':{"value":'.$date.'},"name":{"created-date":{"value":'.
-            $date.'},"last-modified-date":{"value":'.$date.'},"given-names"'.
-            ':{"value":"'.$given_name.'"},"family-name":{"value":"'.
-            $family_name.'"},"credit-name":{"value":"'.$name.'"},"source"'.
-            ':null,"visibility":"PUBLIC","path":"'.$id.'"},"other-names":{"'.
-            'last-modified-date":null,"other-name":[],"path":"/'.
-            $id.'/other-names"},"biography":null,"researcher-urls":{"'.
-            'last-modified-date":null,"researcher-url":[],"path":"/'.
-            $id.'/researcher-urls"},"emails":{"last-modified-date":{"value":'.
-            $date.'},"email":[{"created-date":{"value":'.
-            $date.'},"last-modified-date":{"value":'.
-            $date.'},"source":{"source-orcid":{"uri":"'.
-            $uri.'","path":"'.$id.'","host":"orcid.org"},"source-client-id"'.
-            ':null,"source-name":{"value":"'.$name.'"}},"email":"'.
-            $email.'","path":null,"visibility":"PUBLIC","verified"'.
-            ':true,"primary":true,"put-code":null}],"path":"/'.
-            $id.'/email"},"addresses":{"last-modified-date":null,"'.
-            'address":[],"path":"/'.$id.'/address"},"keywords":{"'.
-            'last-modified-date":null,"keyword":[],"path":"/'.
-            $id.'/keywords"},"external-identifiers":{"last-modified-date"'.
-            ':null,"external-identifier":[],"path":"/'.
+            '","host":"orcid.org"},"preferences":{"locale":"EN"},"'.
+            'history":{"creation-method":"DIRECT","completion-date":null'.
+            ',"submission-date":{"value":'.$date.'},"last-modified-date":'.
+            '{"value":'.$date.'},"claimed":true,"source":null,'.
+            '"deactivation-date":null,"verified-email":true,'.
+            '"verified-primary-email":true},"person":{"last-modified-date"'.
+            ':{"value":'.$date.'},"name":{"created-date":{"value":'.$date.
+            '},"last-modified-date":{"value":'.$date.'},"given-names":'.
+            '{"value":"'.$givenname.'"},"family-name":{"value":"'.$familyname.
+            '"},"credit-name":{"value":"'.$pubname.'"},"source":null,'.
+            '"visibility":"PUBLIC","path":"'.$id.'"},"other-names":{'.
+            '"last-modified-date":{"value":'.$date.'},"other-name":[{'.
+            '"created-date":{"value":'.$date.'},"last-modified-date":{'.
+            '"value":'.$date.'},"source":{"source-orcid":{"uri":"'.$uri.
+            '","path":"'.$id.'","host":"orcid.org"},"source-client-id":null,'.
+            '"source-name":{"value":"'.$pubname.'"}},"content":"'.$othername1.
+            '","visibility":"PUBLIC","path":"/'.$id.'/other-names/952609",'.
+            '"put-code":952609,"display-index":2},{"created-date":{"value":'.
+            $date.'},"last-modified-date":{"value":'.$date.'},"source":{'.
+            '"source-orcid":{"uri":"'.$uri.'","path":"'.$id.'","host":'.
+            '"orcid.org"},"source-client-id":null,"source-name":{"value":"'.
+            $pubname.'"}},"content":"'.$othername2.'","visibility":"PUBLIC",'.
+            '"path":"/'.$id.'/other-names/952610","put-code":952610,'.
+            '"display-index":1}],"path":"/'.$id.'/other-names"},"biography"'.
+            ':null,"researcher-urls":{"last-modified-date":null,'.
+            '"researcher-url":[],"path":"/'.$id.'/researcher-urls"},"emails"'.
+            ':{"last-modified-date":{"value":'.$date.'},"email":[{'.
+            '"created-date":{"value":'.$date.'},"last-modified-date":'.
+            '{"value":'.$date.'},"source":{"source-orcid":{"uri":"'.$uri.
+            '","path":"'.$id.'","host":"orcid.org"},"source-client-id":null,'.
+            '"source-name":{"value":"'.$pubname.'"}},"email":"'.$email1.
+            '","path":null,"visibility":"PUBLIC","verified":true,"primary"'.
+            ':false,"put-code":null},{"created-date":{"value":'.$date.
+            '},"last-modified-date":{"value":'.$date.'},"source":{'.
+            '"source-orcid":{"uri":"'.$uri.'","path":"'.$id.'","host":'.
+            '"orcid.org"},"source-client-id":null,"source-name":{"value":"'.
+            $pubname.'"}},"email":"'.$email2.'","path":null,"visibility":'.
+            '"PUBLIC","verified":true,"primary":true,"put-code":null},{'.
+            '"created-date":{"value":'.$date.'},"last-modified-date":{'.
+            '"value":'.$date.'},"source":{"source-orcid":{"uri":"'.$uri.
+            '","path":"'.$id.'","host":"orcid.org"},"source-client-id"'.
+            ':null,"source-name":{"value":"'.$pubname.'"}},"email":"'.$email3.
+            '","path":null,"visibility":"PUBLIC","verified":true,"primary"'.
+            ':false,"put-code":null}],"path":"/'.$id.'/email"},"addresses":'.
+            '{"last-modified-date":null,"address":[],"path":"/'.$id.
+            '/address"},"keywords":{"last-modified-date":null,"keyword":[],'.
+            '"path":"/'.$id.'/keywords"},"external-identifiers":{'.
+            '"last-modified-date":null,"external-identifier":[],"path":"/'.
             $id.'/external-identifiers"},"path":"/'.$id.'/person"},"path":"/'.
             $id.'"}'
         );
@@ -172,10 +227,10 @@ class ORCIDTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($given_name, $user->getFirstName());
         $this->assertEquals($family_name, $user->getFamilyName());
         $this->assertEquals($family_name, $user->getLastName());
-        $this->assertEquals([], $user->getOtherNames());
-        $this->assertEquals($email, $user->getEmail());
-        $this->assertEquals($email, $user->getPrimaryEmail());
-        $this->assertEquals([$email], $user->getEmails());
+        $this->assertEquals([$othername1, $othername2], $user->getOtherNames());
+        $this->assertEquals($email2, $user->getEmail());
+        $this->assertEquals($email2, $user->getPrimaryEmail());
+        $this->assertEquals([$email1, $email2, $email3], $user->getEmails());
     }
 
     /**
