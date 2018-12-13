@@ -166,7 +166,7 @@ class ORCID extends AbstractProvider
     {
         $method  = $this->getAccessTokenMethod();
         $url     = $this->getAccessTokenUrl($params);
-        $options = $this->getAccessTokenOptions($params);
+        $options = $this->optionProvider->getAccessTokenOptions($method, $params);
         if (is_null($accesstoken)) {
             return $this->getRequest($method, $url, $options);
         } else {
