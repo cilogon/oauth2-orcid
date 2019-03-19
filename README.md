@@ -19,10 +19,9 @@ This package is compliant with [PSR-1][], [PSR-2][] and [PSR-4][]. If you notice
 
 The following versions of PHP are supported.
 
-* PHP 5.6
-* PHP 7.0
 * PHP 7.1
-* HHVM
+* PHP 7.2
+* PHP 7.3
 
 ## Installation
 
