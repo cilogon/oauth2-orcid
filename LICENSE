@@ -2,7 +2,7 @@ https://opensource.org/licenses/NCSA
 
 University of Illinois/NCSA Open Source License
 
-Copyright (c) 2017 National Center for Supercomputing Applications
+Copyright (c) 2019 National Center for Supercomputing Applications
 All rights reserved.
 
 Developed by: CILogon
@@ -21,9 +21,9 @@ furnished to do so, subject to the following conditions:
 * Redistributions in binary form must reproduce the above copyright notice,
   this list of conditions and the following disclaimers in the documentation
   and/or other materials provided with the distribution.
-* Neither the names of <Name of Development Group, Name of Institution>, nor
-  the names of its contributors may be used to endorse or promote products
-  derived from this Software without specific prior written permission. 
+* Neither the names of CILogon, NCSA, nor the names of its contributors may
+  be used to endorse or promote products derived from this Software without
+  specific prior written permission. 
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
