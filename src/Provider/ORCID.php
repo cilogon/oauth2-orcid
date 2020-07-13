@@ -95,6 +95,17 @@ class ORCID extends AbstractProvider
     }
 
     /**
+     * Returns the string that should be used to separate scopes when building
+     * the URL for requesting an access token.
+     *
+     * @return string Scope separator, defaults to ','
+     */
+    protected function getScopeSeparator()
+    {
+        return ' ';
+    }
+
+    /**
      * Returns the default headers used by this provider.
      *
      * Typically this is used to set 'Accept' or 'Content-Type' headers.
