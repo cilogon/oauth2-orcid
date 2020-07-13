@@ -27,7 +27,7 @@ class ORCID extends AbstractProvider
     /**
      * @var string Key used in the access token response to identify the resource owner.
      */
-    const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'orcid';
+    public const ACCESS_TOKEN_RESOURCE_OWNER_ID = 'orcid';
 
     /**
      * @var string
