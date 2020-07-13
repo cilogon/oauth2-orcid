@@ -9,11 +9,11 @@ This package provides ORCID OAuth 2.0 support for the PHP League's [OAuth 2.0 Cl
 
 [ORCID](https://orcid.org) provides a persistent digital identifier for researchers. See [Getting Started](https://members.orcid.org/api/getting-started) for information on integrating your application with ORCID. You will eventually need to [register your application](https://orcid.org/developer-tools) to get an ORCID client id and client secret for your integration.
 
-This package is compliant with [PSR-1][], [PSR-2][] and [PSR-4][]. If you notice compliance oversights, please send a patch via pull request.
+This package is compliant with [PSR-1][], [PSR-4][] and [PSR-12][]. If you notice compliance oversights, please send a patch via pull request.
 
 [PSR-1]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
-[PSR-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
 [PSR-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
+[PSR-12]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-12-extended-coding-style-guide.md
 
 ## Requirements
 
@@ -22,6 +22,7 @@ The following versions of PHP are supported.
 * PHP 7.1
 * PHP 7.2
 * PHP 7.3
+* PHP 7.4
 
 ## Installation
 
