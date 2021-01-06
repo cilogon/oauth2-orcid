@@ -157,6 +157,7 @@ class ORCID extends AbstractProvider
 
     /**
      * Generate a user object from a successful user details request.
+     * Add information about amr from id_token (Only for member API)
      *
      * @param object $response
      * @param AccessToken $token
@@ -164,7 +165,14 @@ class ORCID extends AbstractProvider
      */
     protected function createResourceOwner(array $response, AccessToken $token)
     {
-        return new ORCIDResourceOwner($response);
+        try {
+            $jwt_payload = explode('.', $token->getValues()['id_token']);
+            $jwt_payload_base64 = base64_decode(str_pad(strtr($jwt_payload[1], '-_', '+/'), strlen($jwt_payload[1]) % 4, '=', STR_PAD_RIGHT));
+            $id_token_json = json_decode($jwt_payload_base64, true);
+            $response['amr'] = $id_token_json['amr'];
+        } catch (\Exception $exception) { }
+
+        return  new ORCIDResourceOwner($response);
     }
 
     /**

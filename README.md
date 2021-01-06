@@ -136,6 +136,7 @@ $provider = new CILogon\OAuth2\Client\Provider\ORCID([
 
 Note that you can use this in combination with the Sandbox environment (above).
 
+As an [ORCID member](https://orcid.org/about/membership) you will get an information about user authentication method reference('mfa' for users who have enabled two-factor authentication on their ORCID account, and 'pwd' for users who haven’t)
 
 ### Refreshing a Token
 
