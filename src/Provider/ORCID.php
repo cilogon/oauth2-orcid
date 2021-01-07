@@ -191,7 +191,7 @@ class ORCID extends AbstractProvider
      * Returns a prepared request for requesting an access token.
      *
      * @param array $params Query string parameters
-     * @return GuzzleHttp\Psr7\Request
+     * @return \GuzzleHttp\Psr7\Request
      */
     protected function getAccessTokenRequest(array $params, $accesstoken = null)
     {
