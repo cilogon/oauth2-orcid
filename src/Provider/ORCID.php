@@ -166,7 +166,7 @@ class ORCID extends AbstractProvider
     protected function createResourceOwner(array $response, AccessToken $token)
     {
         // Attempt to extract'amr' (AuthnMethodRef) from the id_token
-        // and add it to the response. Note that 'amr' is available only 
+        // and add it to the response. Note that 'amr' is available only
         // when using the Member API.
         $values = $token->getValues();
         if (array_key_exists('id_token', $values)) {
