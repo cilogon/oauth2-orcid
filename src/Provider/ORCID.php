@@ -179,7 +179,8 @@ class ORCID extends AbstractProvider
                         $response['amr'] = $amr;
                     }
                 }
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
+                // Do not set 'amr' in case of errors.
             }
         }
 
@@ -190,7 +191,7 @@ class ORCID extends AbstractProvider
      * Returns a prepared request for requesting an access token.
      *
      * @param array $params Query string parameters
-     * @return RequestInterface
+     * @return GuzzleHttp\Psr7\Request
      */
     protected function getAccessTokenRequest(array $params, $accesstoken = null)
     {
