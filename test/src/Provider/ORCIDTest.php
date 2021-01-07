@@ -218,16 +218,7 @@ class ORCIDTest extends \PHPUnit_Framework_TestCase
             ->andReturn($postResponse, $userResponse);
         $this->provider->setHttpClient($client);
 
-
-
-
-
-
-
-        $token = $this->provider->getAccessToken(
-            'authorization_code',
-            ['code' => 'mock_authorization_code', 'id_token' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL29yY2lkLm9yZyIsImlhdCI6MTYxMDA1MjU1MSwiZXhwIjoxNjQxNTg4NTUxLCJhdWQiOiJBUFAtMTIzNDU2Nzg5Iiwic3ViIjoiMDAwMC0wMDAxLTIzNDUtNjc4OSIsImdpdmVuX25hbWUiOiJKb2hubnkiLCJmYW1pbHlfbmFtZSI6IlJvY2tldCIsImFtciI6InB3ZCJ9.OV30pUx9s-VfjVSB6s_PTG4nCYXU8DiBnWccybUzXSQ']
-        );
+        $token = $this->provider->getAccessToken('authorization_code', ['code' => 'mock_authorization_code']);
         $user = $this->provider->getResourceOwner($token);
 
         $this->assertEquals($uri, $user->getId());
