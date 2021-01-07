@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  *
  * @author    Terry Fleury <tfleury@cilogon.org>
- * @copyright 2016 University of Illinois
+ * @copyright 2021 University of Illinois
  * @license   https://opensource.org/licenses/NCSA NCSA
  * @link      https://github.com/cilogon/oauth2-orcid GitHub
  */
