@@ -19,6 +19,7 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
+use Lcobucci\JWT\Parser;
 
 class ORCID extends AbstractProvider
 {
@@ -164,6 +165,24 @@ class ORCID extends AbstractProvider
      */
     protected function createResourceOwner(array $response, AccessToken $token)
     {
+        // Attempt to extract'amr' (AuthnMethodRef) from the id_token
+        // and add it to the response. Note that 'amr' is available only 
+        // when using the Member API.
+        $values = $token->getValues();
+        if (array_key_exists('id_token', $values)) {
+            $jwt = $values['id_token'];
+            try {
+                $read = (new Parser())->parse((string) $jwt);
+                if ($read->hasClaim('amr')) {
+                    $amr = $read->getClaim('amr');
+                    if (strlen($amr) > 0) {
+                        $response['amr'] = $amr;
+                    }
+                }
+            } catch (Exception $e) {
+            }
+        }
+
         return new ORCIDResourceOwner($response);
     }
 

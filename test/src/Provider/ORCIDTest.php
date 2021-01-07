@@ -143,6 +143,7 @@ class ORCIDTest extends \PHPUnit_Framework_TestCase
         $email1 = uniqid();
         $email2 = uniqid();
         $email3 = uniqid();
+        $amr = 'pwd';
 
         $postResponse = m::mock('Psr\Http\Message\ResponseInterface');
         $postResponse->shouldReceive('getBody')->andReturn(
@@ -205,7 +206,7 @@ class ORCIDTest extends \PHPUnit_Framework_TestCase
             '"path":"/' . $id . '/keywords"},"external-identifiers":{' .
             '"last-modified-date":null,"external-identifier":[],"path":"/' .
             $id . '/external-identifiers"},"path":"/' . $id . '/person"},"path":"/' .
-            $id . '"}'
+            $id . '","amr":"' . $amr . '"}'
         );
 
         $userResponse->shouldReceive('getHeader')->andReturn(['content-type' => 'json']);
@@ -231,6 +232,7 @@ class ORCIDTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($email2, $user->getEmail());
         $this->assertEquals($email2, $user->getPrimaryEmail());
         $this->assertEquals([$email1, $email2, $email3], $user->getEmails());
+        $this->assertEquals($amr, $user->getAmr());
     }
 
     /**

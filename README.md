@@ -92,6 +92,7 @@ if (!empty($_GET['error'])) {
         echo 'Email                  : ' . $user->getEmail() . "\n";       // 'Primary' preferred
         echo 'Primary Email          : ' . $user->getPrimaryEmail() . "\n";// 'Primary' ONLY
         echo 'All Emails             : ' . implode(',', $user->getEmails()) . "\n";
+        echo 'AuthnMethodRef         : ' . $user->getAmr() . "\n";         // Only for Member API
         echo '</xmp>';
 
     } catch (Exception $e) {
@@ -106,7 +107,7 @@ if (!empty($_GET['error'])) {
 ### Sandbox vs Production
 
 In order to authenticate ORCID users and read associated attributes, you would typically use the Production Registry. However, for special integrations, you may want to register for a [Sandbox application](https://orcid.org/content/register-client-application-sandbox). To use the Sandbox
-environment, set a 'sandbox' parameter to 'true' when creating the provider.
+environment, set a 'sandbox' parameter to `true` when creating the provider.
 
 ```php
 $provider = new CILogon\OAuth2\Client\Provider\ORCID([
@@ -122,7 +123,7 @@ Note that you can use this in combination with the Member API (below).
 
 ### Public API vs Member API
 
-If you are an [ORCID member](https://orcid.org/about/membership), you can use the Member API instead of the Public API. To use the Member API, set a 'member' parameter to 'true' when creating the provider.
+If you are an [ORCID member](https://orcid.org/about/membership), you can use the Member API instead of the Public API. To use the Member API, set a 'member' parameter to `true` when creating the provider. The Member API provides an additional id\_token field 'amr' (AuthnMethodRef). The value is either 'mfa' for users who have enabled two-factor authentication on their ORCID account, or 'pwd' otherwise. When using the Public API, `getAmr()` returns `null`.
 
 ```php
 $provider = new CILogon\OAuth2\Client\Provider\ORCID([

@@ -28,7 +28,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
     /**
      * Creates new resource owner.
      *
-     * @param array  $response
+     * @param array $response
      */
     public function __construct(array $response = array())
     {
@@ -39,7 +39,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
      * Get resource owner id. This corresponds to the "full" ORCID identifier (with
      * the http://orcid.org/ prefix).
      *
-     * @return string
+     * @return string|null
      */
     public function getId()
     {
@@ -50,7 +50,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
      * Get resource owner display name. This corresponds to the
      * "Published Name", * a.k.a. "credit-name".
      *
-     * @return string
+     * @return string|null
      */
     public function getName()
     {
@@ -60,7 +60,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
     /**
      * Get resource owner given (first) name.
      *
-     * @return string
+     * @return string|null
      */
     public function getGivenName()
     {
@@ -70,7 +70,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
     /**
      * Get resource owner given (first) name. Alias for getGivenName().
      *
-     * @return string
+     * @return string|null
      */
     public function getFirstName()
     {
@@ -80,7 +80,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
     /**
      * Get resource owner family (last) name.
      *
-     * @return string
+     * @return string|null
      */
     public function getFamilyName()
     {
@@ -90,7 +90,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
     /**
      * Get resource owner family (last) name. Alias for getFamilyName();
      *
-     * @return string
+     * @return string|null
      */
     public function getLastName()
     {
@@ -120,7 +120,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
      * one marked as 'primary'. If no primary email address exists, then use
      * the last one listed.
      *
-     * @return string
+     * @return string|null
      */
     public function getEmail()
     {
@@ -142,7 +142,7 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
      * addresses for a user, loop through all of them looking for the one
      * marked as 'primary'.
      *
-     * @return string
+     * @return string|null
      */
     public function getPrimaryEmail()
     {
@@ -172,6 +172,18 @@ class ORCIDResourceOwner implements ResourceOwnerInterface
         }
 
         return $retval;
+    }
+
+    /**
+     * Get AMR (AuthnMethodRef) used during authentication.
+     * This value is available only with the Member API.
+     * Can be one of 'mfa', 'pwd', or null.
+     *
+     * @return string|null
+     */
+    public function getAmr()
+    {
+        return @$this->response['amr'] ?: null;
     }
 
     /**
