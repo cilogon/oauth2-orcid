@@ -19,7 +19,8 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
-use Lcobucci\JWT\Parser;
+use Lcobucci\JWT\Encoding\JoseEncoder;
+use Lcobucci\JWT\Token;
 
 class ORCID extends AbstractProvider
 {
@@ -172,9 +173,10 @@ class ORCID extends AbstractProvider
         if (array_key_exists('id_token', $values)) {
             $jwt = $values['id_token'];
             try {
-                $read = (new Parser())->parse((string) $jwt);
-                if ($read->hasClaim('amr')) {
-                    $amr = $read->getClaim('amr');
+                $parser = new Token\Parser(new JoseEncoder());
+                $token2 = $parser->parse((string) $jwt);
+                if ($token2->claims()->has('amr')) {
+                    $amr = $token2->claims()->get('amr');
                     if (strlen($amr) > 0) {
                         $response['amr'] = $amr;
                     }
