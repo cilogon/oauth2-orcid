@@ -19,12 +19,12 @@ This package is compliant with [PSR-1][], [PSR-4][] and [PSR-12][]. If you notic
 
 The following versions of PHP are supported.
 
-* PHP 7.1
-* PHP 7.2
-* PHP 7.3
-* PHP 7.4
-* PHP 8.0
-* PHP 8.1
+* PHP 7.1 (v1.x)
+* PHP 7.2 (v1.x)
+* PHP 7.3 (v1.x)
+* PHP 7.4 (v2.x)
+* PHP 8.0 (v2.x)
+* PHP 8.1 (v2.x)
 
 ## Installation
 
